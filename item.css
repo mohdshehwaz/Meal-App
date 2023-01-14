@@ -1,0 +1,242 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+header{
+    display: flex;
+    width: 100%;
+    background-color: teal;
+    position: relative;
+    justify-content: space-between;
+    text-align: center;
+    padding: 15px 30px;
+
+}
+header .icon{
+    font-size: 35px;
+    font-weight: 800;
+    color: white;
+    cursor: pointer;
+}
+header ol{
+    display: flex;
+    margin: auto 0;
+    list-style: none;
+
+}
+header ol li{
+    margin: 0 2px;
+}
+header ol li a{
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: capitalize;
+    padding: 5px 10px;
+    letter-spacing: 1px;
+}
+header ol li:hover a{
+    background: white;
+    color: teal;
+}
+header .search-box{
+    display: flex;
+    margin: auto 0;
+    height: 35px;
+    line-height: 35px;
+    
+}
+header .search-box input{
+    border: none;
+    outline: none;
+    background-color: white;
+
+    width: 350px;
+    height: 100%;
+    padding: 0 10px;
+    font-size: 20px;
+
+}
+header .search-box span i{
+    color: teal;
+    font-size: 20px;
+    background: white;
+    height: 100%;
+    padding: 8px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+}
+header .search-box span i:hover{
+    color: white;
+}
+header .search-box span i::after{
+    height: 100%;
+    width: 0%;
+    content: '';
+    background: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    transition: 0.3s;
+}
+header .search-box span i:hover::after{
+    width: 100%;
+}
+/* styles for bars minimize */
+header .bar{
+    position: relative;
+    margin: auto;
+    display: none;
+}
+header .bar i{
+    position: absolute;
+    color: white;
+    font-size: 35px;
+}
+input[type= "checkbox"]{
+    -webkit-appearance: none;
+    display: none;
+}
+
+@media screen and (max-width:1250px){
+    header{
+        
+        display: block;
+        padding: 0;
+    }
+    header .icon{
+        display: inline-block;
+        padding: 15px 30px;
+
+    }
+    header .search-box{
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    header .search-box input{
+        width: 90%;
+    }
+    header ol {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        height: 0;
+        visibility: hidden;
+        transition: 0.3s;
+    }
+    header ol li{
+        text-align: center;
+    }
+    header ol li a{
+        color: black;
+        font-size: 28px;
+        padding: 25px;
+        display: block;
+    }
+    header ol li:nth-child(1){
+        transform: translateX(-150px);
+    }
+    header ol li:nth-child(2){
+        transform: translateX(-200px);
+    }
+    header ol li:nth-child(3){
+        transform: translateX(-250px);
+    }
+    header ol li:nth-child(4){
+        transform: translateX(-300px);
+    }
+    header ol li:nth-child(5){
+        transform: translateX(-350px);
+    }
+
+    header .bar{
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 80px;
+        cursor: pointer;
+    }
+    header .bar #times{
+        display: none;
+    }
+    #check:checked ~ header .bar #times{
+        display: block;
+    }
+    #check:checked ~ header .bar #bars{
+        display: none;
+    }
+    #check:checked ~header ol{
+        visibility: visible;
+        height: 465px;
+    }
+    #check:checked ~header ol li :nth-child(1),
+    #check:checked ~header ol li :nth-child(2),
+    #check:checked ~header ol li :nth-child(3),
+    #check:checked ~header ol li :nth-child(4), 
+    #check:checked ~header ol li :nth-child(5){
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+#mai{
+    background: #fffde7;
+}
+#name{
+    text-align: center;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    padding-top: 50px;
+    margin-bottom: 40px;
+    color: grey;
+    font-weight: 800;
+
+}
+#body-div{
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    margin: 50px;
+}
+
+#body-div h2{
+    text-align: center;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    color: black;
+    font-weight: 400;
+}
+#body-div img{
+    height: 400px;
+    width: 400px;
+    box-sizing: border-box;
+    margin: 50px;
+    border: none;
+    border-radius: 10px;
+    width: auto;
+    box-shadow:10px 10px none;
+
+}
+#insta{
+    margin: 50px;
+    line-height: 30px;
+    letter-spacing: 1px;
+    color: green;
+
+}
+#insta button{
+    margin-top: 50px;
+    height: 30px;
+    width: 80px;
+    border: none;
+    border-radius: 10px;
+    background-color: aqua;
+
+}
