@@ -14,7 +14,7 @@ let itemList =[];
 let favs =[];
 let searchItems =[];
 fetchData();
-
+//search box event listener
 searchBox.addEventListener('keyup', (e) => {   
     console.log(searchItems)
     remove();
@@ -32,6 +32,7 @@ searchBox.addEventListener('keyup', (e) => {
         
     }
 });
+// remove items from search suggestions
 function remove(){
     let ritems = document.querySelectorAll(".list-item");
     ritems.forEach((ritem)=>{
@@ -73,6 +74,7 @@ function handleClickListener(e){
     }
     
 }
+// search by id
 function searchById(id){
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response)=>{
@@ -92,7 +94,7 @@ function initializeApp(){
     document.addEventListener('click',handleClickListener);
 }
 initializeApp();
-
+//search by name 
 function searchByName(name){
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
         .then((response)=>{
@@ -114,6 +116,7 @@ function searchByName(name){
             console.log(e);
         });
 }
+// fetch data by category of items
 function fetchData(){
     fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood')
         .then((response)=>{
@@ -131,7 +134,7 @@ function fetchData(){
         });
 
 }
-
+// show data in our body page
 function showData(){
     mainId.innerHTML = '';
 

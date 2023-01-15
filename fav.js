@@ -2,6 +2,7 @@ var storedNames = JSON.parse(localStorage.getItem("favs"));
 var fId = document.getElementById('fav-items');
 let favItems = [];
 let itemLists =[];
+// if favorite items contain an item
 if(storedNames.length!=0){
     
     favItems=storedNames.map((item) =>{
@@ -16,6 +17,7 @@ if(storedNames.length!=0){
     
     
 }
+// search the description of the item
 function searchById(id){
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response)=>{
@@ -31,6 +33,7 @@ function searchById(id){
             console.log(e);
         });
 }
+// display data into our page
 function showData(item){
     
     

@@ -1,7 +1,7 @@
 const main = document.getElementById('mai');
 console.log("in the main ",localStorage.getItem("id"));
 searchById(localStorage.getItem("id"));
-
+// search by id
 function searchById(id){
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response)=>{
