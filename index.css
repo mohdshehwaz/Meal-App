@@ -334,9 +334,24 @@ input[type= "checkbox"]{
     background-color: aqua;
     text-decoration: none;
 }
-.active{
-    background-color: blue;
+.fa-solid.fa-heart{
+
+    color: rgb(45, 44, 0);
 }
+/* i.active{
+    
+    background-color: brown;
+   
+    
+}
+.item-btns i{
+
+    background-color: green;
+} */
 .fa-heart.active {
-    color: rgb(158, 45, 45);
+    color: brown
+}
+.fa-heart:hover{
+    scale: 1.9;
+    transition: ease-in-out all .25s;
 }
