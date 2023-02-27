@@ -50,11 +50,11 @@ function remove(){
 // }
 function handleClickListener(e){
     let searchItem = searchBox.value;
-    
+    console.log(e.target.className);
     if(e.target.id == 'search-btn'){
         
         searchBox.textContent="";
-        console.log("search name");
+        
     
         
         searchByName(searchItem);
@@ -65,18 +65,23 @@ function handleClickListener(e){
         window.location.href = '/item.html';
     }
     if(e.target.className =="fav-btn"){
-        console.log(e.target.id, "the id of fav btn");
+       
         favs.push(e.target.id);
         
     }
-    if(e.target.className =='fa-regular fa-heart '){
-        console.log(e.target.classList);
+    if(e.target.className =='fa-solid fa-heart '){
+       
         favs.push(e.target.id);
+        showData();
+        alert("Add to favorite");
+    }
+    if(e.target.className == 'fa-solid fa-heart active'){
+        
+        favs = favs.filter(id => id != e.target.id );
         showData();
     }
     if(e.target.className=="detail-btn"){
-        console.log("In the Details btn clicked");
-        console.log(e.target.id);
+        
         mainId.style.display = "none";
         singleItem.style.display="block";
         searchById(e.target.id)
@@ -92,7 +97,7 @@ function searchById(id){
         .then((data)=>{
             // console.log(data);
             // itemList = data.meals;
-            console.log(data.meals[0]);
+            
             showSingleItem(data.meals[0]);
         })
         .catch((e)=>{
@@ -101,7 +106,7 @@ function searchById(id){
 }
 function showSingleItem(item){
     singleItem.innerHTML = '';
-    console.log(item);
+    
     const div = document.createElement('div');
     div.innerHTML = `
         <h1 id="name">${item.strMeal}</h1>
@@ -112,7 +117,6 @@ function showSingleItem(item){
                 <p>${item.strInstructions}</p>
                 <a href=${item.strYoutube} >Watch Video</a>
             </div>
-            
         </div>                
     `;
     singleItem.append(div);
@@ -133,7 +137,7 @@ function searchByName(name){
 
           
             itemList = data.meals;
-            console.log(data.meals);
+            
             if(itemList!=null){
                 showData();
 
@@ -166,7 +170,7 @@ function fetchData(){
 // show data in our body page
 function showData(){
     mainId.innerHTML = '';
-    console.log(itemList)
+   
     for(var item of itemList){
         const div = document.createElement('div');
         div.innerHTML = `
@@ -175,7 +179,7 @@ function showData(){
                 <p>${item.strMeal}</p>
                 <div class="item-btns">
                     <button class="detail-btn" id="${item.idMeal}" >More Details</button>
-                    <i id="${item.idMeal}" class="fa-regular fa-heart ${isFav(item.idMeal) ? "active":""}"  ></i>
+                    <i id="${item.idMeal}" class="fa-solid fa-heart ${isFav(item.idMeal) ? "active":""}"  ></i>
                 </div>
                 
             </div>       
@@ -184,8 +188,7 @@ function showData(){
     }
 }
 function isFav(id){
-    console.log(favs);
-    console.log(id);
+
     if(favs.includes(id)){
         console.log("In the true")
         return true;
