@@ -3,6 +3,8 @@ var searchBtn = document.getElementById('search-btn');
 var searchBox = document.getElementById('search-box');
 var favId = document.getElementById("fav-id");
 const singleItem = document.getElementById('single-item');
+let favBlock = document.getElementsByClassName('fav-class');
+let favitemClass = document.getElementById('fav-items-id');
 // var mainId = document.getElementById('main');
 // mainId.addEventListener('click',(e)=>{
 //     e.stopPropagation();
@@ -12,6 +14,7 @@ const singleItem = document.getElementById('single-item');
 
 let itemList =[];
 let favs =[];
+let favsItemDetail =[];
 let searchItems =[];
 fetchData();
 //search box event listener
@@ -51,12 +54,8 @@ function remove(){
 function handleClickListener(e){
     let searchItem = searchBox.value;
     console.log(e.target.className);
-    if(e.target.id == 'search-btn'){
-        
+    if(e.target.id == 'search-btn'){ 
         searchBox.textContent="";
-        
-    
-        
         searchByName(searchItem);
     }
     
@@ -86,8 +85,72 @@ function handleClickListener(e){
         singleItem.style.display="block";
         searchById(e.target.id)
     }
+    if(e.target.className == 'fav-show'){
+        
+        favBlock[0].style.display = "block";
+        showfavorites();
+    }
     
 }
+//show favrites items only
+function showfavorites(){
+    // singleItem.innerHTML = '';
+    
+    // const div = document.createElement('div');
+    // div.innerHTML = `
+    //     <h1 id="name">${item.strMeal}</h1>
+    //     <div  id="body-div">
+    //         <img src ="${item.strMealThumb}" />
+    //         <div id="insta">
+    //             <h2>Instructions</h2>
+    //             <p>${item.strInstructions}</p>
+    //             <a href=${item.strYoutube} >Watch Video</a>
+    //         </div>
+    //     </div>                
+    // `;
+    // singleItem.append(div);
+
+    // <h4>Favorites Items</h4>
+    //     <div class="fav-items">
+    //         <div class="fav-item">
+    //             <img src="https://www.themealdb.com/images/media/meals/1520084413.jpg"  >
+    //             <p>Salmon Prawn Risotto</p>
+    //             <div class="fav-item-btns">
+    //                 <button class="detail-btn"  >More Details</button>
+    //                 <i  class="fa-solid fa-heart"></i>
+    //             </div>
+                
+    //         </div>
+    //     </div>
+
+    favitemClass.innerHTML = '';
+    favsItemDetail=[];
+    for(let i =0; i< favs.length;i++){
+        
+        searchById(favs[i]);
+    }
+   
+    for(let i=0;i<favsItemDetail.length;i++){
+        let div = document.createElement('div');
+        div.add.classList('fav-item');
+        div.innerHTML = `
+            
+            <img>src=${favsItemDetail[i].strMealThumb}</img>
+            <p>${favsItemDetail[i].strMeal}</p>
+            <div class="fav-item-btns">
+                <button class="detail-btn"  >More Details</button>
+                <i  class="fa-solid fa-heart"></i>
+            </div>
+
+        `;
+        favitemClass.innerHTML = div;
+
+    }
+    console.log("Items of fav")
+    console.log(favsItemDetail);
+    
+}
+
 // search by id
 function searchById(id){
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -97,7 +160,8 @@ function searchById(id){
         .then((data)=>{
             // console.log(data);
             // itemList = data.meals;
-            
+            favsItemDetail.push(data.meals[0]);
+            console.log("In search by id ",data.meals[0])
             showSingleItem(data.meals[0]);
         })
         .catch((e)=>{
