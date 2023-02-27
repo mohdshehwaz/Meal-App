@@ -2,7 +2,7 @@ var mainId = document.getElementById('main');
 var searchBtn = document.getElementById('search-btn');
 var searchBox = document.getElementById('search-box');
 var favId = document.getElementById("fav-id");
-
+const singleItem = document.getElementById('single-item');
 // var mainId = document.getElementById('main');
 // mainId.addEventListener('click',(e)=>{
 //     e.stopPropagation();
@@ -50,11 +50,12 @@ function remove(){
 // }
 function handleClickListener(e){
     let searchItem = searchBox.value;
+    
     if(e.target.id == 'search-btn'){
         
         searchBox.textContent="";
         console.log("search name");
-        searchItems.push(searchItem);
+    
         
         searchByName(searchItem);
     }
@@ -68,9 +69,17 @@ function handleClickListener(e){
         favs.push(e.target.id);
         
     }
-    if(e.target.id==='fav-id'){
-        localStorage.setItem("favs", JSON.stringify(favs));
-        window.location.href = '/fav.html';
+    if(e.target.className =='fa-regular fa-heart '){
+        console.log(e.target.classList);
+        favs.push(e.target.id);
+        showData();
+    }
+    if(e.target.className=="detail-btn"){
+        console.log("In the Details btn clicked");
+        console.log(e.target.id);
+        mainId.style.display = "none";
+        singleItem.style.display="block";
+        searchById(e.target.id)
     }
     
 }
@@ -81,13 +90,32 @@ function searchById(id){
             return response.json();
         })
         .then((data)=>{
-           
-            
-            
+            // console.log(data);
+            // itemList = data.meals;
+            console.log(data.meals[0]);
+            showSingleItem(data.meals[0]);
         })
         .catch((e)=>{
             console.log(e);
         });
+}
+function showSingleItem(item){
+    singleItem.innerHTML = '';
+    console.log(item);
+    const div = document.createElement('div');
+    div.innerHTML = `
+        <h1 id="name">${item.strMeal}</h1>
+        <div  id="body-div">
+            <img src ="${item.strMealThumb}" />
+            <div id="insta">
+                <h2>Instructions</h2>
+                <p>${item.strInstructions}</p>
+                <a href=${item.strYoutube} >Watch Video</a>
+            </div>
+            
+        </div>                
+    `;
+    singleItem.append(div);
 }
 function initializeApp(){
     // addTaskInput.addEventListener('keyup',handleInputKeypress);
@@ -105,6 +133,7 @@ function searchByName(name){
 
           
             itemList = data.meals;
+            console.log(data.meals);
             if(itemList!=null){
                 showData();
 
@@ -137,16 +166,37 @@ function fetchData(){
 // show data in our body page
 function showData(){
     mainId.innerHTML = '';
-
+    console.log(itemList)
     for(var item of itemList){
         const div = document.createElement('div');
         div.innerHTML = `
             <div class="item" id="${item.idMeal}">
                 <img src ="${item.strMealThumb}" />
                 <p>${item.strMeal}</p>
-                <button class ="fav-btn" id="btn-${item.idMeal}">Add to favourite</button>
+                <div class="item-btns">
+                    <button class="detail-btn" id="${item.idMeal}" >More Details</button>
+                    <i id="${item.idMeal}" class="fa-regular fa-heart ${isFav(item.idMeal) ? "active":""}"  ></i>
+                </div>
+                
             </div>       
         `;
         mainId.append(div);
     }
+}
+function isFav(id){
+    console.log(favs);
+    console.log(id);
+    if(favs.includes(id)){
+        console.log("In the true")
+        return true;
+    }
+    return false;
+}
+function addRemoveToFavList(id){
+   
+    if(favs.includes(id)){
+        return;
+    }
+    favs.push(id);
+    showData();
 }
