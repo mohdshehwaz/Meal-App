@@ -186,95 +186,7 @@ input[type= "checkbox"]{
 @media screen and (max-width:1250px){
 
     
-    header{
-        
-        display: block;
-        padding: 0;
-    }
-    header .icon{
-        display: inline-block;
-        padding: 15px 30px;
-
-    }
-    header .search-box{
-        width: 100%;
-        display: inline-flex;
-        justify-content: center;
-        
-    }
-    header .search-box input{
-        width: 90%;
-    }
-    header #form-id .list{
-        width: 90%;
-        text-align: center;
-        margin: 0 5% 0 5%;
-        
-       
-        
-        line-height: 35px;
-    }
-    header ol {
-        display: flex;
-        flex-direction: column;
-        background: white;
-        height: 0;
-        visibility: hidden;
-        transition: 0.3s;
-    }
-    header ol li{
-        text-align: center;
-    }
-    header ol li a{
-        color: black;
-        font-size: 28px;
-        padding: 25px;
-        display: block;
-    }
-    header ol li:nth-child(1){
-        transform: translateX(-150px);
-    }
-    header ol li:nth-child(2){
-        transform: translateX(-200px);
-    }
-    header ol li:nth-child(3){
-        transform: translateX(-250px);
-    }
-    header ol li:nth-child(4){
-        transform: translateX(-300px);
-    }
-    header ol li:nth-child(5){
-        transform: translateX(-350px);
-    }
-
-    header .bar{
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 80px;
-        cursor: pointer;
-    }
-    header .bar #times{
-        display: none;
-    }
-    #check:checked ~ header .bar #times{
-        display: block;
-    }
-    #check:checked ~ header .bar #bars{
-        display: none;
-    }
-    #check:checked ~header ol{
-        visibility: visible;
-        height: 465px;
-    }
-    #check:checked ~header ol li :nth-child(1),
-    #check:checked ~header ol li :nth-child(2),
-    #check:checked ~header ol li :nth-child(3),
-    #check:checked ~header ol li :nth-child(4), 
-    #check:checked ~header ol li :nth-child(5){
-        transform: translateX(0);
-        opacity: 1;
-    }
+   
 }
 #single-item{
     background: #fffde7;
@@ -338,20 +250,73 @@ input[type= "checkbox"]{
 
     color: rgb(45, 44, 0);
 }
-/* i.active{
-    
-    background-color: brown;
-   
-    
-}
-.item-btns i{
 
-    background-color: green;
-} */
 .fa-heart.active {
     color: brown
 }
 .fa-heart:hover{
     scale: 1.9;
     transition: ease-in-out all .25s;
+}
+.fav-class{ 
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    height: auto;
+    width: 250px;
+    background-color:azure;
+    min-height: 100vh;
+    text-align: center;
+}
+.fav-class h4{
+    margin-top: 20px;
+    padding: 10px;
+}
+.fav-items{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+.fav-item{
+    display: flex;
+    flex-direction: column;
+
+    background-color: teal;
+    align-items: center;
+    
+    width: 220px;
+    box-sizing: border-box;
+    box-shadow: 5px lightgray;
+    margin: 10px;
+}
+.fav-item img{
+    height: 200px;
+    pointer-events: none;
+    box-sizing: border-box;
+    width: 90%;
+    border-radius: 50%;
+    padding: 10px;
+}
+.fav-item-btns{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.fav-item-btns button{
+    width: 100px;
+    color: white;
+    background-color: teal;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+}
+
+.fav-item-btns i{
+    color: brown;
 }
