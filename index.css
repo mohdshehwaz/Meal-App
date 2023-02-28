@@ -6,25 +6,26 @@
 }
 header{
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     background-color: teal;
     position: relative;
     justify-content: space-between;
     text-align: center;
     padding: 15px 30px;
-
 }
 header .icon{
-    font-size: 35px;
+    font-size: 25px;
     font-weight: 800;
     color: white;
     cursor: pointer;
+    text-decoration: none;
 }
 header ol{
     display: flex;
+    flex-wrap: wrap;
     margin: auto 0;
     list-style: none;
-
 }
 header ol li{
     margin: 0 2px;
@@ -46,14 +47,13 @@ header .search-box{
     margin: auto 0;
     height: 35px;
     line-height: 35px;
-    
 }
 header .search-box input{
     border: none;
     outline: none;
     background-color: white;
 
-    width: 350px;
+    width: auto;
     height: 100%;
     padding: 0 10px;
     font-size: 20px;
@@ -65,7 +65,7 @@ header .search-box span i{
     background: white;
     height: 100%;
     padding: 8px;
-    position: relative;
+    /* position: relative; */
     cursor: pointer;
     z-index: 1;
 }
@@ -77,7 +77,7 @@ header .search-box span i::after{
     width: 0%;
     content: '';
     background: red;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     right: 0;
     z-index: -1;
@@ -183,10 +183,14 @@ input[type= "checkbox"]{
 .item-btns i{
     color: brown;
 }
-@media screen and (max-width:1250px){
-
-    
-   
+@media screen and (max-width:650px){
+    header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+ 
 }
 #single-item{
     background: #fffde7;
@@ -266,12 +270,13 @@ input[type= "checkbox"]{
     cursor: pointer;
     height: auto;
     width: 250px;
-    background-color:azure;
-    min-height: 100vh;
+    background-color:pink;
+    height: 100vh;
     text-align: center;
+    overflow: scroll;
 }
 .fav-class h4{
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
 }
 .fav-items{
@@ -284,7 +289,7 @@ input[type= "checkbox"]{
     display: flex;
     flex-direction: column;
 
-    background-color: teal;
+    background-color: rgb(247, 89, 89);
     align-items: center;
     
     width: 220px;
@@ -319,4 +324,12 @@ input[type= "checkbox"]{
 
 .fav-item-btns i{
     color: brown;
+}
+#cross-mark{
+    display: flex;
+    justify-content: start;
+    padding: 10px;
+}
+#cross-mark i{
+    font-size: 25px;
 }
