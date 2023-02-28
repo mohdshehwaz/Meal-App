@@ -4,13 +4,8 @@ var searchBox = document.getElementById('search-box');
 var favId = document.getElementById("fav-id");
 const singleItem = document.getElementById('single-item');
 let favBlock = document.getElementsByClassName('fav-class');
-let favitemClass = document.getElementById('fav-items-id');
-// var mainId = document.getElementById('main');
-// mainId.addEventListener('click',(e)=>{
-//     e.stopPropagation();
-//     console.log(e.target);
-// })
-
+let favitemClass = document.getElementById('fav-items');
+let cross = document.getElementById('cross');
 
 let itemList =[];
 let favs =[];
@@ -42,42 +37,36 @@ function remove(){
         ritem.remove();
     })
 }
-// var items  = document.getElementsByClassName('item');
-// console.log(items);
-// for(let i=0;i<items.length;i++){
-//     items[i].addEventListener('click',(e)=>{
-//         e.preventDefault();
-//         console.log("dsfds");
-//         window.location.href('/item.html');
-//     })
-// }
+// handle click listner on the document where we can check at which position user has clicked and than perform an action
 function handleClickListener(e){
+    
     let searchItem = searchBox.value;
-    console.log(e.target.className);
+   
     if(e.target.id == 'search-btn'){ 
         searchBox.textContent="";
         searchByName(searchItem);
     }
-    
-    if(e.target.className == 'item'){
-        localStorage.setItem("id",e.target.id);
-        window.location.href = '/item.html';
-    }
-    if(e.target.className =="fav-btn"){
-       
-        favs.push(e.target.id);
-        
-    }
+    // if(e.target.className == 'item'){
+    //         localStorage.setItem("id",e.target.id);
+    //         window.location.href = '/item.html';
+    //     }    
+  
+   
     if(e.target.className =='fa-solid fa-heart '){
        
         favs.push(e.target.id);
+        searchByFavId(e.target.id);
         showData();
+   
         alert("Add to favorite");
     }
     if(e.target.className == 'fa-solid fa-heart active'){
         
         favs = favs.filter(id => id != e.target.id );
+        favsItemDetail = favsItemDetail.filter(item => item.idMeal != e.target.id);
+        
         showData();
+        showfavorites();
     }
     if(e.target.className=="detail-btn"){
         
@@ -90,67 +79,29 @@ function handleClickListener(e){
         favBlock[0].style.display = "block";
         showfavorites();
     }
+    if(e.target.id == 'cross'){
+        favBlock[0].style.display = "none";
+    }
     
 }
-//show favrites items only
-function showfavorites(){
-    // singleItem.innerHTML = '';
-    
-    // const div = document.createElement('div');
-    // div.innerHTML = `
-    //     <h1 id="name">${item.strMeal}</h1>
-    //     <div  id="body-div">
-    //         <img src ="${item.strMealThumb}" />
-    //         <div id="insta">
-    //             <h2>Instructions</h2>
-    //             <p>${item.strInstructions}</p>
-    //             <a href=${item.strYoutube} >Watch Video</a>
-    //         </div>
-    //     </div>                
-    // `;
-    // singleItem.append(div);
 
-    // <h4>Favorites Items</h4>
-    //     <div class="fav-items">
-    //         <div class="fav-item">
-    //             <img src="https://www.themealdb.com/images/media/meals/1520084413.jpg"  >
-    //             <p>Salmon Prawn Risotto</p>
-    //             <div class="fav-item-btns">
-    //                 <button class="detail-btn"  >More Details</button>
-    //                 <i  class="fa-solid fa-heart"></i>
-    //             </div>
-                
-    //         </div>
-    //     </div>
-
-    favitemClass.innerHTML = '';
-    favsItemDetail=[];
-    for(let i =0; i< favs.length;i++){
-        
-        searchById(favs[i]);
-    }
-   
-    for(let i=0;i<favsItemDetail.length;i++){
-        let div = document.createElement('div');
-        div.add.classList('fav-item');
-        div.innerHTML = `
+// search by id
+function searchByFavId(id){
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then((response)=>{
+            return response.json();
+        })
+        .then((data)=>{
+            // console.log(data);
+            // itemList = data.meals;
+            favsItemDetail.push(data.meals[0]);
             
-            <img>src=${favsItemDetail[i].strMealThumb}</img>
-            <p>${favsItemDetail[i].strMeal}</p>
-            <div class="fav-item-btns">
-                <button class="detail-btn"  >More Details</button>
-                <i  class="fa-solid fa-heart"></i>
-            </div>
-
-        `;
-        favitemClass.innerHTML = div;
-
-    }
-    console.log("Items of fav")
-    console.log(favsItemDetail);
-    
+            
+        })
+        .catch((e)=>{
+            console.log(e);
+        });
 }
-
 // search by id
 function searchById(id){
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -161,7 +112,7 @@ function searchById(id){
             // console.log(data);
             // itemList = data.meals;
             favsItemDetail.push(data.meals[0]);
-            console.log("In search by id ",data.meals[0])
+            
             showSingleItem(data.meals[0]);
         })
         .catch((e)=>{
@@ -250,6 +201,33 @@ function showData(){
         `;
         mainId.append(div);
     }
+}
+//show favrites items only
+function showfavorites(){
+    console.log("In the favorites")
+
+    favitemClass.innerHTML = '';
+
+    for(var item of favsItemDetail){
+       
+        let div = document.createElement('div');
+       
+        div.innerHTML = `
+            <div class="fav-item">
+            <img src ="${item.strMealThumb}" />
+                <p>${item.strMeal}</p>
+                <div class="fav-item-btns">
+                    <button class="detail-btn" id="${item.idMeal}" >More Details</button>
+                    <i  id="${item.idMeal}" class="fa-solid fa-heart ${isFav(item.idMeal) ? "active":""}"></i>
+                </div>
+            </div>
+
+        `;
+        favitemClass.append(div);
+
+    }
+   
+    
 }
 function isFav(id){
 
